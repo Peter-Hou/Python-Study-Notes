@@ -1,0 +1,74 @@
+---
+title: "apply_family"
+author: "Peter"
+date: "March 29, 2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# apply function
+
+apply(X, MARGIN, FUN)
+
+- X being an array(2 dimensional array) or a matrix
+- MARGIN = 1, 2 or c(1,2) with 1 - rows, 2 - columns (appling function on rows or columns or both)
+- FUN - function used to apply on X
+
+```{r}
+x <- matrix(rnorm(30), ncol = 6, nrow = 5) # generate a random 5x6 matrix
+
+apply(x, 2, sum)
+
+
+```
+
+# lapply function
+
+lapply(X, FUN, additional arguments for FUN)
+```{r}
+ 
+x <- list("A" = c(1, 2, 3), "B" = c(4, 5, 6))
+
+lapply(x, sum) # sum by interating over all entries in lists x
+
+
+A <- matrix(rnorm(50), ncol = 10, nrow = 5)
+x <- list("A" = data.frame(A))
+lapply(x, sum) # if one of the entries in the lists is a data frame, it sums all the elements
+
+
+# example of using the addtional argument
+x <- list("A" = rnorm(10))
+lapply(x, quantile, probs = c(0, 0.25, 0.75, 1)) 
+
+```
+``` {r}
+A <- matrix(seq(1,9), ncol = 3)
+
+B <- matrix(seq(10, 18), ncol = 3)
+
+C <- matrix(seq(19, 27), ncol = 3)
+
+MyList <- list(A, B, C)
+
+# extract the second column of each matrix
+
+lapply(MyList, "[", , 2)
+```
+The above `[`  is the selection operator which is from A[row, column]. The first parameter is for the rows, and we want all rows which left it empty.
+
+For select all the record at (1, 2), we would do ```lapply(x, "[", 1, 2)```
+
+
+# sapply function
+
+It is another version of lapply which it will convert to the simpliest data type, usually vectot.
+
+``` {r}
+df <- read.csv("C:/Users\ZHou\Desktop\Tidy Data in Python\pew-raw.csv")
+head(df)
+
+```
